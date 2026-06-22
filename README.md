@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Life Notes
 
-## Getting Started
+A powerful notetaking app that can do much more than just take notes, it is a customizable dashboard for many things such as monitoring, weather, creating timers, checklists, events, dynamic forms with custom functionality and more l, also allowing collaboration and precise sharing with specific infos.
 
-First, run the development server:
+## The Dashboard
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+In the dashboard, one can click on squares to activate Actions. Or add more actions or general statistics to display. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Actions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Forms
 
-## Learn More
+One can create forms within notes with custom functionality like sending a webhook or creating more notes/documentation from the data input.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Every person is considered one user.
+//Every user can create many networks.
+Every user can create multiple dashboards.
+A dashboard contains items that can either be:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- static text
+- text fetched from a url (eg quote of the day)
+  - hardcoded option for weather
+- time
+- countdown to an event of the calendar (eg birthday)
+- button to open a note
+  - option for a macro (like new entry to a diary note page)
+- button to create an event in the calendar
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visibilitiy permission, which are managed on a user or network basis can be assigned to each action or on the dashboard as a whole. Each note page can also have different permissions.
