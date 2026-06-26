@@ -1,12 +1,11 @@
 "use client";
 
-console.log("am i running?");
-
 import { createClientIDB } from "@/utils/idb/client";
 import { DashboardData } from "../dashboard.types";
 
 const DEFAULT_DASHBOARD: DashboardData = {
   name: "testaa",
+  is_default: false,
   widgets: [
     {
       name: "timea",
@@ -18,6 +17,7 @@ const DEFAULT_DASHBOARD: DashboardData = {
 export async function getDefaultDashboardLocal(): Promise<DashboardData> {
   return {
     name: "default dashboard",
+    is_default: true,
     widgets: [
       {
         name: "timea",
@@ -33,19 +33,17 @@ export async function getDashboardLocal(id: string) {
   return DEFAULT_DASHBOARD;
 }
 
-export async function createDashboardLocal(name?: string) {
+export async function createDashboardLocal(name?: string): Promise<DashboardData> {
   const widgets = name ? [] : DEFAULT_DASHBOARD.widgets;
 
   const db = await createClientIDB("dashboards");
-  // const res = await db.add(
-  //   "dashboards",
-  //   {
-  //     name: name ?? `New Dashboard - ${new Date().toLocaleString()}`,
-  //     widgets: widgets,
-  //   } satisfies DashboardData,
-  // );
-  const res = await db.get("dashboards", "test");
-  console.log("res --->", res);
+  const dashboard: DashboardData = {
+    name: name ?? `New Dashboard - ${new Date().toLocaleString()}`,
+    is_default: false,
+    widgets: widgets,
+  };
 
-  return DEFAULT_DASHBOARD;
+  await db.add("dashboards", dashboard);
+
+  return dashboard;
 }

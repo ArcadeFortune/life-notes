@@ -15,11 +15,9 @@ export default function DashboardLocal({ name, is_default = false }: { name?: st
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
   useEffect(() => {
     if (is_default) {
-      createDashboardLocal().then(setDashboard);
-      // getDefaultDashboardLocal().then(setDashboard);
+      getDefaultDashboardLocal().then(setDashboard);
     } else if (name) {
-      // getDashboardLocal(name).then(setDashboard);
-      createDashboardLocal().then(setDashboard);
+      getDashboardLocal(name).then(setDashboard);
     } else {
       createDashboardLocal().then(setDashboard);
     }
