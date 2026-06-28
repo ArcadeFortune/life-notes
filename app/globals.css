@@ -55,10 +55,7 @@ h2 {
     background: var(--foreground);
     color: var(--background);
 
-    &:hover,
-    &:focus {
-      background: var(--foreground-accent)
-    }
+    @apply hover:bg-primary-accent;
 
     &:active {
       background: var(--foreground);
