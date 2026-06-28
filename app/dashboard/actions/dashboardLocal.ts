@@ -3,9 +3,9 @@
 import { createClientIDB } from "@/utils/idb/client";
 import { DashboardData, DashboardDataInsert } from "../dashboard.types";
 
+const LOCAL_USER_ID = "anonymous";
 const DEFAULT_DASHBOARD: DashboardDataInsert = {
   name: "testaa",
-  is_default: false,
   widgets: [
     {
       name: "timea",
@@ -14,31 +14,35 @@ const DEFAULT_DASHBOARD: DashboardDataInsert = {
     },
   ],
 };
+
+/**
+ * Checks the user preferences for their default dashboard
+ * @returns DashboardData or null if there is no default dashboard set
+ */
 export async function getDefaultDashboardLocal() {
-  throw new Error("Not implemented")
-  /*
-  return {
-    name: "default dashboard",
-    is_default: true,
-    widgets: [
-      {
-        name: "timea",
-        type: "time",
-        timezone: "Europe/Zurich",
-      },
-    ],
-  };
-  */
+  const db = await createClientIDB();
+
+  const userPreferences = await db.get("user_preferences", LOCAL_USER_ID);
+  if (!userPreferences) return null;
+
+  const dashboard = await db.get("dashboards", userPreferences.default_dashboard);
+  if (!dashboard) {
+    throw new Error("Dashboard does not exist anymore.");
+  }
+
+  return dashboard;
 }
 
 export async function setDefaultDashboardLocal(id: DashboardData["id"]) {
-  const db = await createClientIDB("dashboards");
+  throw new Error("Not implemeneted");
+  const db = await createClientIDB();
 
   const dashboard: DashboardData = await db.get("dashboards", id);
   if (!dashboard) throw new Error("No Dashboard found.");
 
-  dashboard.is_default = true;
+  // dashboard.is_default = true;
 
+  //also remove is_default status of previous default dashboard
   await db.put("dashboards", dashboard, id);
 }
 
@@ -47,18 +51,16 @@ export async function getDashboardLocal(id: DashboardData["id"]) {
   return DEFAULT_DASHBOARD;
 }
 
-export async function createDashboardLocal(name?: DashboardData["name"]): Promise<DashboardData> {
-  const widgets = name ? [] : DEFAULT_DASHBOARD.widgets;
+export async function createDashboardLocal(name = `New Dashboard - ${new Date().toLocaleString()}`, makeDefault = false) {
+  const widgets = DEFAULT_DASHBOARD.widgets;
+  const dashboardId = crypto.randomUUID();
+  const dashboard: DashboardData = { id: dashboardId, name, widgets };
 
-  const db = await createClientIDB("dashboards");
-  const dashboardInsert: DashboardDataInsert = {
-    name: name ?? `New Dashboard - ${new Date().toLocaleString()}`,
-    is_default: false,
-    widgets: widgets,
-  };
+  const db = await createClientIDB();
+  await db.add("dashboards", dashboard, dashboardId);
+  if (makeDefault) {
+    await db.add("user_preferences", { default_dashboard: dashboardId }, LOCAL_USER_ID);
+  }
 
-  const id = await db.add("dashboards", dashboardInsert);
-
-  const dashboard: DashboardData = { ...dashboardInsert, id: Number(id) }
   return dashboard;
 }

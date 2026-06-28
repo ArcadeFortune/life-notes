@@ -1,64 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --background-accent: #b7b7b7;
-  --foreground: #171717;
-  --foreground-accent: #454545;
-  --transition-length: .25s;
-  --border-radius: .25rem;
+  --la-background: #EFECF1;
+  --la-text: #530071;
+  --la-primary: #A900DF;
+  --la-primary-accent: #BC6EE1;
+  --la-secondary: #a40505;
+  --la-overlay-background: #7c696970;
+  --la-transition-length: .25s;
+  --la-border-radius: .25rem;
+  --la-font-family: Arial;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-background: #0a0712;
+  --color-foreground: #ffe3e3;
+
+  --color-primary: #A900DF;
+  --color-primary-accent: #BC6EE1;
+  --color-secondary: #a40505;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+  --duration-fast: .25s;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --background-accent: #383838;
-    --foreground: #ededed;
-    --foreground-accent: #b9b9b9;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--la-background);
+  color: var(--la-text);
+  font-family: var(--la-font-family);
 }
 
 h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--foreground);
 }
 
 h2 {
   font-size: 1rem;
   font-weight: bold;
-  color: var(--foreground);
 }
 
 .btn {
   padding: .5rem;
   line-height: 1;
-  border-radius: var(--border-radius);
+  border-radius: var(--la-border-radius);
   cursor: pointer;
-  transition: var(--transition-length);
+  transition: var(--la-transition-length);
   user-select: none;
 
   &.btn-primary {
-    background: var(--foreground);
-    color: var(--background);
+    background: var(--la-primary);
+    color: var(--la-background);
 
-    @apply hover:bg-primary-accent;
+    &:hover,
+    &:focus {
+      background: var(--la-primary-accent);
+    }
 
     &:active {
-      background: var(--foreground);
+      background: var(--la-primary);
     }
   }
 }
