@@ -1,10 +1,6 @@
-import { getUser } from "@/utils/supabase/user";
-import DashboardLocal from "../dashboardLocal";
-import DashboardRemote from "../dashboardRemote";
+import DashboardPage from "../page";
 
-export default async function DashboardPage({ params }: { params: { name: string; }; }) {
+export default async function DashboardPageName({ params }: { params: { name: string; }; }) {
   const { name } = await params;
-  const user = await getUser();
-  if (!user) return <DashboardLocal name={name} />;
-  else return <DashboardRemote name={name} />;
+  return <DashboardPage name={name} />;
 }
