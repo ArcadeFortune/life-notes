@@ -1,6 +1,6 @@
 "use client";
 
-import { createDashboardLocal, getDashboardLocal, getDefaultDashboardLocal } from "@/app/dashboard/actions/dashboardLocal";
+import { createDashboardLocal, deleteDashboardLocal, getDashboardLocal, getDefaultDashboardLocal, saveDashboardLocal } from "@/app/dashboard/actions/dashboardLocal";
 import { useEffect, useState } from "react";
 import Dashboard from "./dashboard";
 import Loading from "@/components/loading";
@@ -27,5 +27,5 @@ export default function DashboardLocal({ name, is_default = false }: { name?: st
     }
   }, []);
 
-  return dashboard ? <Dashboard data={dashboard} /> : <Loading />;
+  return dashboard ? <Dashboard dashboard={dashboard} saveDashboard={saveDashboardLocal} deleteDashboard={deleteDashboardLocal}/> : <Loading />;
 }

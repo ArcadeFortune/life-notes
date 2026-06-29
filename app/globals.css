@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --la-background: #EFECF1;
-  --la-text: #530071;
-  --la-primary: #A900DF;
-  --la-primary-accent: #BC6EE1;
+  --la-background: #f9f9f9;
+  --la-text: #2f0260;
+  --la-primary: #000bdf;
+  --la-primary-accent: #3939e3;
   --la-secondary: #a40505;
   --la-overlay-background: #7c696970;
-  --la-transition-length: .25s;
   --la-border-radius: .25rem;
   --la-font-family: Arial;
+  --la-box-shadow: 3px 3px 13px -4px #525252;
+  --tw-duration: .25s;
 }
 
 @theme {
@@ -22,7 +23,6 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --duration-fast: .25s;
-
 }
 
 body {
@@ -31,14 +31,38 @@ body {
   font-family: var(--la-font-family);
 }
 
-h1 {
+h1,
+.h1 {
   font-size: 2rem;
   font-weight: bold;
+  width: 100%;
 }
 
-h2 {
+h2,
+.h2 {
   font-size: 1rem;
   font-weight: bold;
+  width: 100%;
+}
+
+.container {
+  margin-inline: auto;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background: var(--la-background);
+  outline: 0;
+}
+
+.box {
+  border-radius: var(--la-border-radius);
+  box-shadow: var(--la-box-shadow);
+  border: 1px solid var(--la-text);
+  padding: .5rem;
 }
 
 .btn {
@@ -46,8 +70,12 @@ h2 {
   line-height: 1;
   border-radius: var(--la-border-radius);
   cursor: pointer;
-  transition: var(--la-transition-length);
+  transition: var(--tw-duration);
   user-select: none;
+
+  * {
+    transition: var(--tw-duration);
+  }
 
   &.btn-primary {
     background: var(--la-primary);

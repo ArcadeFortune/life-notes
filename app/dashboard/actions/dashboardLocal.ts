@@ -37,13 +37,13 @@ export async function setDefaultDashboardLocal(id: DashboardData["id"]) {
   throw new Error("Not implemeneted");
   const db = await createClientIDB();
 
-  const dashboard: DashboardData = await db.get("dashboards", id);
+  const dashboard = await db.get("dashboards", id)!;
   if (!dashboard) throw new Error("No Dashboard found.");
 
   // dashboard.is_default = true;
 
   //also remove is_default status of previous default dashboard
-  await db.put("dashboards", dashboard, id);
+  // await db.put("dashboards", dashboard, id);
 }
 
 export async function getDashboardLocal(id: DashboardData["id"]) {
@@ -63,4 +63,21 @@ export async function createDashboardLocal(name = `New Dashboard - ${new Date().
   }
 
   return dashboard;
+}
+
+export async function saveDashboardLocal(data: DashboardData) {
+  const db = await createClientIDB();
+
+  console.debug("Inserting data of dashboard #%s. data: %o", data.id, data);
+  await db.put("dashboards", data, data.id);
+}
+
+export async function deleteDashboardLocal(id: DashboardData["id"]) {
+  const db = await createClientIDB();
+
+  const preferences = await db.get("user_preferences", LOCAL_USER_ID);
+  if (preferences?.default_dashboard === id) throw new Error("Cannot delete the default dashboard.");
+
+  console.debug("Deleting Dashboard #%s", id);
+  await db.delete("dashboards", id);
 }
