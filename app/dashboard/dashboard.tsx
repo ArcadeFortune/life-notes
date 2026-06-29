@@ -1,10 +1,11 @@
 "use client";
 
-import Widget from "./widget";
+import Widget from "./widgets/widget";
 import { DashboardData } from "./dashboard.types";
 import { ButtonClose, ButtonEdit } from "@/components/buttons";
 import { useState } from "react";
 import { toast, ToastPromiseParams } from "react-toastify";
+import { DragDropProvider } from "@dnd-kit/react";
 
 const saveDashboardMessages: ToastPromiseParams = {
   error: "Unable to save dashboard, try again.",
@@ -42,9 +43,19 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
           <ButtonEdit onClick={() => setIsEditing(true)} />
         }
       </div>
-      <div>
-        {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} />))}
-      </div>
+      <DragDropProvider
+        onDragOver={(event) => {
+          console.log(event);
+        }}
+      >
+        <div className="grid grid-cols-6 gap-4">
+          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} index={i + 1} />))}
+          <Widget data={{ type: "add" }} index={9} />
+          <Widget data={{ type: "add" }} index={8} />
+          <Widget data={{ type: "add" }} index={7} />
+          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} index={i} />))}
+        </div>
+      </DragDropProvider>
     </div>
   );
 }

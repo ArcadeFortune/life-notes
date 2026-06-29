@@ -62,6 +62,7 @@ h2,
   border-radius: var(--la-border-radius);
   box-shadow: var(--la-box-shadow);
   border: 1px solid var(--la-text);
+  background-color: var(--la-background);
   padding: .5rem;
 }
 

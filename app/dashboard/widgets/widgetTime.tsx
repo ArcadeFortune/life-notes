@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/components/loading";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export type TimeWidget = {
   type: "time",
@@ -9,7 +9,7 @@ export type TimeWidget = {
   timezone: string | undefined,
 };
 
-export default function TimeWidget({ data }: { data: TimeWidget; }) {
+export default function WidgetTime({ data }: { data: TimeWidget; }) {
   const [time, setTime] = useState("");
   const [timezone, setTimezone] = useState(data.timezone);
 
