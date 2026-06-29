@@ -8,7 +8,7 @@ import { DashboardData, DashboardDataInsert } from "./dashboard.types";
 
 /**
  * Loads dashboard using local data
- * @param param0 name of the dashboard to load
+ * @param name of the dashboard to load
  * @returns loaded dashboard with local data
  */
 export default function DashboardLocal({ name, is_default = false }: { name?: string, is_default?: boolean; }) {
@@ -27,5 +27,5 @@ export default function DashboardLocal({ name, is_default = false }: { name?: st
     }
   }, []);
 
-  return dashboard ? <Dashboard dashboard={dashboard} saveDashboard={saveDashboardLocal} deleteDashboard={deleteDashboardLocal}/> : <Loading />;
+  return dashboard ? <Dashboard data={dashboard} saveDashboard={saveDashboardLocal} deleteDashboard={deleteDashboardLocal} /> : <Loading />;
 }

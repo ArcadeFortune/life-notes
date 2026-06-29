@@ -13,25 +13,25 @@ const saveDashboardMessages: ToastPromiseParams = {
 };
 
 interface DashboardProps {
-  dashboard: DashboardData;
+  data: DashboardData;
   saveDashboard: (d: DashboardData) => Promise<void>;
   deleteDashboard: (id: DashboardData["id"]) => Promise<void>;
 }
 
-export default function Dashboard({ dashboard, saveDashboard, deleteDashboard }: DashboardProps) {
+export default function Dashboard({ data, saveDashboard, deleteDashboard }: DashboardProps) {
+  const [dashboard, setDashboard] = useState(data);
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(dashboard.name);
 
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <form onSubmit={(e) => { e.preventDefault(); toast.promise(saveDashboard({ ...dashboard, name }), saveDashboardMessages); }}>
+        <form onSubmit={(e) => { e.preventDefault(); toast.promise(saveDashboard({ ...dashboard }), saveDashboardMessages); }} className="w-full">
           <h1>
             <input disabled={!isEditing}
-              onBlur={() => toast.promise(saveDashboard({ ...dashboard, name }), saveDashboardMessages)}
-              onChange={(e) => setName(e.target.value)}
+              onBlur={() => saveDashboard({ ...dashboard })} //notifying the user for every blur save is rather annoying
+              onChange={(e) => setDashboard({ ...dashboard, name: e.target.value })}
               className={`cursor-text transition-all outline-0 w-full ${isEditing && "text-shadow-[0_0_2px_#005fff]"}`}
-              value={name}
+              value={dashboard.name}
               name="title"
               type="text"
             />
