@@ -17,7 +17,8 @@
     "next": "16.2.9",
     "radix-ui": "^1.6.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-toastify": "^11.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",

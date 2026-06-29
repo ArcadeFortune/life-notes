@@ -4,6 +4,13 @@ import Widget from "./widget";
 import { DashboardData } from "./dashboard.types";
 import { ButtonClose, ButtonEdit } from "@/components/buttons";
 import { useState } from "react";
+import { toast, ToastPromiseParams } from "react-toastify";
+
+const saveDashboardMessages: ToastPromiseParams = {
+  error: "Unable to save dashboard, try again.",
+  pending: "Saving dasbhaord",
+  success: "Dashboard saved.",
+};
 
 interface DashboardProps {
   dashboard: DashboardData;
@@ -18,17 +25,18 @@ export default function Dashboard({ dashboard, saveDashboard, deleteDashboard }:
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <h1>
-          <form onSubmit={(e) => { e.preventDefault(); saveDashboard({ ...dashboard, name }); }}>
+        <form onSubmit={(e) => { e.preventDefault(); toast.promise(saveDashboard({ ...dashboard, name }), saveDashboardMessages); }}>
+          <h1>
             <input disabled={!isEditing}
-              onBlur={() => saveDashboard({ ...dashboard, name })}
+              onBlur={() => toast.promise(saveDashboard({ ...dashboard, name }), saveDashboardMessages)}
               onChange={(e) => setName(e.target.value)}
               className={`cursor-text transition-all outline-0 w-full ${isEditing && "text-shadow-[0_0_2px_#005fff]"}`}
               value={name}
               name="title"
               type="text"
-            /></form>
-        </h1>
+            />
+          </h1>
+        </form>
         {isEditing ?
           <ButtonClose onClick={() => setIsEditing(false)} /> :
           <ButtonEdit onClick={() => setIsEditing(true)} />
