@@ -3,19 +3,20 @@ import { WidgetData } from "../dashboard.types";
 import WidgetAdd from "./widgetAdd";
 import WidgetTime from "./widgetTime";
 
-export default function Widget({ data, index }: { data: WidgetData | { type: "add"; }, index: number; }) {
-  const { ref } = useSortable({ id: index, index });
+export default function Widget({ data }: { data: WidgetData; }) {
+  const { ref } = useSortable({ id: data.index, index: data.index });
+  if (!data.size) data.size = 2;
 
   return (
-    <div ref={ref} className={`col-span-2 flex items-center flex-col p-1 box ${data.type === "add" && "aspect-square"}`}>
+    <div ref={ref} className={`col-span-${data.size}`}>
       {(() => {
         switch (data.type) {
           case "time":
             return <WidgetTime data={data} />;
           case "add":
             return <WidgetAdd />;
-          default:
-            return <p>Unknown type: {data.type}</p>;
+          // default:
+          //   return <p>Unknown type: {data.type}</p>;
         }
       })()}
     </div>

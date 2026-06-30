@@ -11,6 +11,8 @@ const DEFAULT_DASHBOARD: DashboardDataInsert = {
       name: "timea",
       type: "time",
       timezone: "Europe/Zurich",
+      index: 0,
+      size: 2,
     },
   ],
 };

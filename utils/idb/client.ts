@@ -14,13 +14,32 @@ interface DashnotesDB extends DBSchema {
 
 
 export function createClientIDB() {
-  return openDB<DashnotesDB>("Dashnotes", 1, {
-    upgrade(db) {
-      const dashboards = db.createObjectStore("dashboards", {
-      });
+  return openDB<DashnotesDB>("Dashnotes", 1.1, {
+    upgrade(db, oldVersion, newVersion, transaction) {
+      if (oldVersion < 1) {
+        db.createObjectStore("dashboards");
+        db.createObjectStore("user_preferences");
+      }
 
-      db.createObjectStore("user_preferences", {
-      });
+      if (oldVersion < 1.1) {
+        const store = transaction.objectStore("dashboards");
+        return (async () => {
+          let cursor = await store.openCursor();
+          while (cursor) {
+            const dashboard = cursor.value;
+
+            await cursor.update({
+              ...dashboard,
+              widgets: dashboard.widgets.map((w, i) => ({
+                ...w,
+                index: i,
+                size: 2,
+              }))
+            });
+            cursor = await cursor.continue();
+          }
+        })();
+      }
     },
   });
 }

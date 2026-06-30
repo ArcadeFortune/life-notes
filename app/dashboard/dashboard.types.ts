@@ -1,4 +1,5 @@
-import { TimeWidget } from "./widgets/widgetTime";
+import { WidgetAdd } from "./widgets/widgetAdd";
+import { TimeWidget as WidgetTime } from "./widgets/widgetTime";
 
 export type DashboardData = {
   id: string;
@@ -11,4 +12,9 @@ export type DashboardDataInsert = {
   widgets: WidgetData[];
 };
 
-export type WidgetData = TimeWidget;
+type BaseWidget = {
+  index: number;
+  size: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+export type WidgetData = BaseWidget & (WidgetTime | WidgetAdd);

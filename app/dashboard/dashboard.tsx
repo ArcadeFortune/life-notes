@@ -49,11 +49,8 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
         }}
       >
         <div className="grid grid-cols-6 gap-4">
-          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} index={i + 1} />))}
-          <Widget data={{ type: "add" }} index={9} />
-          <Widget data={{ type: "add" }} index={8} />
-          <Widget data={{ type: "add" }} index={7} />
-          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} index={i} />))}
+          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} />))}
+          <Widget data={{ type: "add", index: 3, size: 1 }} />
         </div>
       </DragDropProvider>
     </div>
