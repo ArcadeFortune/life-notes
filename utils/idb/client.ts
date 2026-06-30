@@ -15,7 +15,7 @@ interface DashnotesDB extends DBSchema {
 
 export function createClientIDB() {
   return openDB<DashnotesDB>("Dashnotes", 1.1, {
-    upgrade(db, oldVersion, newVersion, transaction) {
+    upgrade(db, oldVersion, _newVersion, transaction) {
       if (oldVersion < 1) {
         db.createObjectStore("dashboards");
         db.createObjectStore("user_preferences");

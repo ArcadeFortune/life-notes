@@ -34,7 +34,7 @@ export default function WidgetTime({ data }: { data: TimeWidget; }) {
   }, []);
 
   return (
-    <div className="box">
+    <div>
       <h2>{data.name}</h2>
       {(!time || !timezone) && <Loading />}
       <p className="text-2xl">{time}</p>

@@ -49,7 +49,7 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
         }}
       >
         <div className="grid grid-cols-6 gap-4">
-          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} />))}
+          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} editMode={isEditing} />))}
           <Widget data={{ type: "add", index: 3, size: 1 }} />
         </div>
       </DragDropProvider>
