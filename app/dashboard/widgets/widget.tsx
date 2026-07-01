@@ -3,7 +3,7 @@ import { WidgetData } from "../dashboard.types";
 import WidgetAdd from "./widgetAdd";
 import WidgetTime from "./widgetTime";
 
-export default function Widget({ data, editMode = false }: { data: WidgetData, editMode?: boolean; }) {
+export default function Widget({ data, editMode = false, saveWidget }: { data: WidgetData, editMode?: boolean, saveWidget: (w: WidgetData) => Promise<void>; }) {
   const { ref } = useSortable({ id: data.index, index: data.index, disabled: !editMode });
   if (!data.size) data.size = 2;
 
@@ -12,7 +12,7 @@ export default function Widget({ data, editMode = false }: { data: WidgetData, e
       {(() => {
         switch (data.type) {
           case "time":
-            return <WidgetTime data={data} />;
+            return <WidgetTime data={data} saveWidget={saveWidget} />;
           case "add":
             return <WidgetAdd />;
           // default:

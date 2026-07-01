@@ -75,7 +75,6 @@ h2,
 }
 
 .btn {
-  padding: .5rem;
   line-height: 1;
   border-radius: var(--la-border-radius);
   cursor: pointer;
@@ -89,6 +88,7 @@ h2,
   &.btn-primary {
     background: var(--la-primary);
     color: var(--la-background);
+    padding: .5rem;
 
     &:hover,
     &:focus {

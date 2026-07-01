@@ -1,6 +1,7 @@
 import { SquarePlus } from "lucide-react";
+import { BaseWidget } from "../dashboard.types";
 
-export type WidgetAdd = {
+export type WidgetAdd = BaseWidget & {
   type: "add";
 };
 

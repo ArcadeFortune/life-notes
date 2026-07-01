@@ -1,7 +1,7 @@
 "use client";
 
 import Widget from "./widgets/widget";
-import { DashboardData } from "./dashboard.types";
+import { DashboardData, WidgetData } from "./dashboard.types";
 import { ButtonClose, ButtonEdit } from "@/components/buttons";
 import { useState } from "react";
 import { toast, ToastPromiseParams } from "react-toastify";
@@ -22,6 +22,19 @@ interface DashboardProps {
 export default function Dashboard({ data, saveDashboard, deleteDashboard }: DashboardProps) {
   const [dashboard, setDashboard] = useState(data);
   const [isEditing, setIsEditing] = useState(false);
+
+  async function saveWidget(widget: WidgetData) {
+    const updatedDashboard = {
+      ...dashboard,
+      widgets: dashboard.widgets.map((w) =>
+        w.index === widget.index ? widget : w
+      ),
+    };
+    console.debug('updating dashboard to:', updatedDashboard);
+
+    setDashboard(updatedDashboard);
+    toast.promise(saveDashboard(updatedDashboard), saveDashboardMessages);
+  }
 
   return (
     <div className="container">
@@ -49,8 +62,8 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
         }}
       >
         <div className="grid grid-cols-6 gap-4">
-          {dashboard.widgets.map((d, i) => (<Widget key={i} data={d} editMode={isEditing} />))}
-          <Widget data={{ type: "add", index: 3, size: 1 }} />
+          {dashboard.widgets.map((d) => (<Widget key={d.index} data={d} editMode={isEditing} saveWidget={saveWidget} />))}
+          <Widget data={{ type: "add", index: 3, size: 1 }} saveWidget={saveWidget} />
         </div>
       </DragDropProvider>
     </div>
