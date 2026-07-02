@@ -4,6 +4,7 @@ import Loading from "@/components/loading";
 import { useEffect, useState } from "react";
 import WidgetEditForm from "./widgetEditForm";
 import { BaseWidget, WidgetData } from "../dashboard.types";
+import Checkbox from "@/components/checkbox";
 
 export type WidgetTime = BaseWidget & {
   type: "time",
@@ -64,9 +65,11 @@ export default function WidgetTime({ data, saveWidget }: { data: WidgetTime, sav
         <WidgetEditForm name={data.name}
           onSubmit={() => saveWidget({ ...data, ...form })}
         >
-          <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <label><input type="checkbox" checked={form.hour12} onChange={(e) => setForm({ ...form, hour12: e.target.checked })} />12 Hour Format</label>
-          <select name="country"
+          <input type="text" name="name" autoComplete="off" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <Checkbox value={form.hour12} setValue={(v) => setForm({ ...form, hour12: v })} name="hour12">
+            12 Hour Format
+          </Checkbox>
+          <select name="country" autoComplete="country-name"
             value={timezoneCountry}
             onChange={(e) => {
               const country = e.target.value;
@@ -82,7 +85,7 @@ export default function WidgetTime({ data, saveWidget }: { data: WidgetTime, sav
               <option key={i}>{c}</option>
             ))}
           </select>
-          <select name="region"
+          <select name="region" autoComplete="off"
             value={timezoneRegion}
             onChange={(e) => {
               const country = timezoneCountry;
@@ -99,7 +102,7 @@ export default function WidgetTime({ data, saveWidget }: { data: WidgetTime, sav
             ))}
           </select>
           {countries[timezoneCountry][timezoneRegion].length > 0 &&
-            <select name="subregion"
+            <select name="subregion" autoComplete="off"
               value={timezoneSubregion}
               onChange={(e) => {
                 const country = timezoneCountry;

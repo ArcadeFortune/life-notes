@@ -3,7 +3,8 @@
 
 :root {
   --la-background: #f9f9f9;
-  --la-text: #2f0260;
+  --la-text: #0a0260;
+  --la-text-accent: #7b71db;
   --la-primary: #000bdf;
   --la-primary-accent: #3939e3;
   --la-secondary: #a40505;
@@ -16,12 +17,14 @@
 
 @theme {
   --color-background: #0a0712;
-  --color-foreground: #ffe3e3;
+  --color-foreground: var(--la-text);
+  --color-foreground-accent: var(--la-text-accent);
   --shadow-box: 3px 3px 13px -4px #525252;
+  --shadow-interactive: 0px 0px 6px 0px var(--la-primary);
 
-  --color-primary: #A900DF;
-  --color-primary-accent: #BC6EE1;
-  --color-secondary: #a40505;
+  --color-primary: var(--la-primary);
+  --color-primary-accent: var(--la-primary-accent);
+  --color-secondary: var(--la-secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --duration-fast: .25s;
@@ -49,6 +52,7 @@ h2,
 
 .container {
   margin-inline: auto;
+  padding-inline: 1rem;
 }
 
 .popup {
@@ -62,15 +66,15 @@ h2,
 
 .box {
   @apply shadow-box;
-  --la-box-shadow: 3px 3px 13px -4px #525252;
   border-radius: var(--la-border-radius);
   box-shadow: var(--la-box-shadow);
   border: 1px solid var(--la-text);
   background-color: var(--la-background);
   padding: .5rem;
+  transition: var(--tw-duration);
 
   &.box-highlight {
-    box-shadow: 3px 3px 13px -4px #005fff;
+    @apply shadow-interactive;
   }
 }
 
