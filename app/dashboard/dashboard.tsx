@@ -24,6 +24,9 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
   const [isEditing, setIsEditing] = useState(false);
 
   async function saveWidget(widget: WidgetData) {
+    if (JSON.stringify(widget) === JSON.stringify(dashboard.widgets.find(w => w.index === widget.index)))
+      return console.debug("No changes detected to save.");
+
     const updatedDashboard = {
       ...dashboard,
       widgets: dashboard.widgets.map((w) =>
@@ -31,7 +34,6 @@ export default function Dashboard({ data, saveDashboard, deleteDashboard }: Dash
       ),
     };
     console.debug('updating dashboard to:', updatedDashboard);
-
     setDashboard(updatedDashboard);
     toast.promise(saveDashboard(updatedDashboard), saveDashboardMessages);
   }

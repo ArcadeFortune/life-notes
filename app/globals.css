@@ -99,4 +99,13 @@ h2,
       background: var(--la-primary);
     }
   }
+
+  &.btn-empty {
+    padding: .5rem;
+
+    &:hover,
+    &:focus {
+      color: var(--la-primary);
+    }
+  }
 }

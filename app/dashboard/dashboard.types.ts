@@ -1,5 +1,5 @@
-import { WidgetAdd } from "./widgets/widgetAdd";
-import { WidgetTime as WidgetTime } from "./widgets/widgetTime";
+import type { WidgetAdd } from "./widgets/widgetAdd";
+import type { WidgetTime } from "./widgets/widgetTime";
 
 export type DashboardData = {
   id: string;
