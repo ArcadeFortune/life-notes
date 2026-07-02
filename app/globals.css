@@ -19,12 +19,10 @@
   --color-background: #0a0712;
   --color-foreground: var(--la-text);
   --color-foreground-accent: var(--la-text-accent);
-  --shadow-box: 3px 3px 13px -4px #525252;
-  --shadow-interactive: 0px 0px 6px 0px var(--la-primary);
-
   --color-primary: var(--la-primary);
   --color-primary-accent: var(--la-primary-accent);
   --color-secondary: var(--la-secondary);
+  --shadow-interactive: 0px 0px 6px 0px var(--la-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --duration-fast: .25s;
@@ -62,20 +60,6 @@ h2,
   translate: -50% -50%;
   background: var(--la-background);
   outline: 0;
-}
-
-.box {
-  @apply shadow-box;
-  border-radius: var(--la-border-radius);
-  box-shadow: var(--la-box-shadow);
-  border: 1px solid var(--la-text);
-  background-color: var(--la-background);
-  padding: .5rem;
-  transition: var(--tw-duration);
-
-  &.box-highlight {
-    @apply shadow-interactive;
-  }
 }
 
 .btn {

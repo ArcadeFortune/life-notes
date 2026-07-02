@@ -1,3 +1,4 @@
+import Box from "@/components/box";
 import { ButtonWidgetSettings } from "@/components/buttons";
 import { Dialog } from "radix-ui";
 import { ReactNode, useState } from "react";
@@ -21,16 +22,18 @@ export default function WidgetEditForm({ name, onSubmit, children }: { name: str
       </Dialog.Trigger>
       <Dialog.Portal >
         <Dialog.Overlay className="fixed inset-0 bg-(--la-overlay-background)" />
-        <Dialog.Content className="popup box">
-          <form className="flex flex-col"
-            onSubmit={(e) => {
-              onSubmit().then(() => setOpen(false));
-              e.preventDefault();
-            }}
-          >
-            <Dialog.Title>Edit {name}</Dialog.Title>
-            {children}
-          </form>
+        <Dialog.Content>
+          <Box className="popup">
+            <form className="flex flex-col"
+              onSubmit={(e) => {
+                onSubmit().then(() => setOpen(false));
+                e.preventDefault();
+              }}
+            >
+              <Dialog.Title>Edit {name}</Dialog.Title>
+              {children}
+            </form>
+          </Box>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
